@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">contacts2</string>
+    <string name="person1_name">Борис</string>
+    <string name="person1_surname">Акунин</string>
+    <string name="person1_phone">717171</string>
+    <string name="person2_name">Стивен</string>
+    <string name="person2_surname">Кинг</string>
+    <string name="person2_phone">808080</string>
+    <string name="person3_name">Джоан</string>
+    <string name="person3_surname">Роулинг</string>
+    <string name="person3_phone">554455</string>
+    <string name="person4_name">Грибоедов</string>
+    <string name="person4_surname">Александр</string>
+    <string name="person4_phone">777178</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone">Phone number</string>
+    <string name="contact_info">CONTACT INFORMATION</string>
+    <string name="image">User photo</string>
+    <string name="default_val">-</string>
+
+    <string name="enter_name">Enter new name</string>
+    <string name="enter_surname">Enter new surname</string>
+    <string name="enter_phone">Enter new phone number</string>
+    <string name="save">Save changes</string>
+    <string name="search">Search</string>
+
+</resources>
