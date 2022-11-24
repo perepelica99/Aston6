@@ -2,6 +2,8 @@ package com.example.contacts2.fragment_details
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +17,12 @@ import com.example.contacts2.main.navigator
 
 private const val KEY_CONTACT = "CONTACT"
 
-class ContactInfoFragment : Fragment() {
+class ContactInfoFragment() : Fragment() {
 
     private var binding: FragmentContactInfoBinding? = null
     private var vm: ContactInfoViewModel? = null
-    private var contact: Contact? = null
+    private lateinit var contact: Contact
+    private lateinit var onContactSaved: (Contact)->Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,48 +56,33 @@ class ContactInfoFragment : Fragment() {
 
     private fun init() {
         arguments?.let {
-            contact = it.getParcelable(KEY_CONTACT)
+            contact = it.getParcelable(KEY_CONTACT)!!
         }
-        binding!!.contactFirstName.text = contact?.firstName
-        binding!!.contactLastName.text = contact?.lastName
-        binding!!.contactPhoneNumber.text = contact?.phoneNumber
+        binding!!.etFirstNameContact.setText( contact.firstName)
+        binding!!.etLastNameContact.setText ( contact.lastName)
+        binding!!.etPhoneNumberContact.setText (contact.phoneNumber)
 
     }
 
     private fun saveOrUpdateContact() {
         binding!!.btnSave.setOnClickListener {
-
-            if (contact == null) {
-
-                vm!!.save(
-                    firstName = binding!!.etFirstNameContact.text.toString(),
-                    lastName = binding!!.etLastNameContact.text.toString(),
-                    phone = binding!!.etPhoneNumberContact.text.toString(),
-                    id = null
-                )
-            } else {
-                val firstName = binding!!.etFirstNameContact.text.toString().ifEmpty { contact!!.firstName }
-                val lastName = binding!!.etLastNameContact.text.toString().ifEmpty { contact!!.lastName }
-                val phoneNumber = binding!!.etPhoneNumberContact.text.toString().ifEmpty { contact!!.phoneNumber }
-
-                vm!!.update(
-                    firstName = firstName,
-                    lastName = lastName,
-                    phone = phoneNumber,
-                    id = contact!!.id
-                )
-
-            }
+            contact.lastName = binding!!.etLastNameContact.text.toString()
+            contact.firstName = binding!!.etFirstNameContact.text.toString()
+            contact.phoneNumber = binding!!.etPhoneNumberContact.text.toString()
+            onContactSaved(contact)
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(contact: Contact?) =
+        fun newInstance(contact: Contact?, onContactSaved: (Contact)->Unit) =
             ContactInfoFragment().apply {
+                this.onContactSaved = onContactSaved
                 arguments = Bundle().apply {
                     putParcelable(KEY_CONTACT, contact)
                 }
             }
     }
+
+
 }

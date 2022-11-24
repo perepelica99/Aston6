@@ -8,7 +8,7 @@ fun Fragment.navigator(): ContactsNavigator {
 
 interface ContactsNavigator {
 
-    fun launchInfoFragment(contact: Contact?)
+    fun launchInfoFragment(contact: Contact, onContactSaved: (Contact)->Unit)
 
 
 

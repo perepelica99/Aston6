@@ -1,5 +1,6 @@
 package com.example.contacts2.fragment_details
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.contacts2.main.Contact
@@ -37,5 +38,20 @@ class ContactInfoViewModel(
 
             }
         } catch (e: Exception) {
-        }}}
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(contact: Contact) =
+            ContactInfoFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(KEY_CONTACT, contact)
+                }
+            }
+
+        private const val KEY_CONTACT = "CONTACT"
+    }
+}
+
 
